@@ -66,15 +66,18 @@ public class EleicaoImpl extends UnicastRemoteObject implements Eleicao {
             JsonObject resultadoJson = new JsonObject();
             JsonArray resultadosArray = new JsonArray();
 
-            String sessionId = UUID.randomUUID().toString(); // Gera um ID de sessão único
+            // Gera um ID de sessão único para a execução atual
+            String sessionId = UUID.randomUUID().toString();
 
-            // Itera sobre a lista de candidatos
+            // Adiciona o ID da sessão no JSON principal
+            resultadoJson.addProperty("id_sessao", sessionId);
+
+            // Itera sobre a lista de candidatos e adiciona os resultados
             for (Candidato candidato : candidatosManager.listarCandidatos()) {
                 JsonObject candidatoJson = new JsonObject();
                 int numeroPartido = candidato.getPartido();
                 int totalVotos = votos.getOrDefault(candidato.getNome(), 0);
 
-                candidatoJson.addProperty("id_sessao", sessionId);
                 candidatoJson.addProperty("nome", candidato.getNome());
                 candidatoJson.addProperty("numero_partido", numeroPartido);
                 candidatoJson.addProperty("votos", totalVotos);
@@ -82,6 +85,7 @@ public class EleicaoImpl extends UnicastRemoteObject implements Eleicao {
                 resultadosArray.add(candidatoJson);
             }
 
+            // Adiciona o array de resultados ao JSON principal
             resultadoJson.add("resultados", resultadosArray);
 
             // Serializa o objeto JSON para o arquivo com formatação
@@ -91,5 +95,4 @@ public class EleicaoImpl extends UnicastRemoteObject implements Eleicao {
             e.printStackTrace();
         }
     }
-
 }

@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7857eb2-6232-4ab4-b363-e47c71faf299" name="Changes" comment="PR json">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/logico/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/logico/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/logico/Server/ServidorRMI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/logico/Server/ServidorRMI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/logico/model/Candidato.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/logico/model/Candidato.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/logico/model/EleicaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/logico/model/EleicaoImpl.java" afterDir="false" />
-    </list>
+    <list default="true" id="d7857eb2-6232-4ab4-b363-e47c71faf299" name="Changes" comment="PR json" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -130,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724958871844</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="PR json">
+      <option name="closed" value="true" />
+      <created>1724959318545</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1724959318546</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
