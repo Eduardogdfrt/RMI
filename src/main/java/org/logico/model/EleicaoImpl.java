@@ -1,16 +1,15 @@
 package org.logico.model;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class EleicaoImpl extends UnicastRemoteObject implements Eleicao {
     private final Map<String, Integer> votos; // Mapeia nome do candidato para votos
@@ -27,9 +26,9 @@ public class EleicaoImpl extends UnicastRemoteObject implements Eleicao {
             public void run() {
                 exibirVotos();
             }
-        }, 0, 5000); // Executa a cada 5 segundos
+        }, 0, 5000);
 
-        // Registro do shutdown hook
+
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Salvando resultados antes de encerrar...");
             salvarResultados("C:\\Users\\edufr\\IdeaProjects\\RMi\\src\\main\\java\\org\\logico\\resultados.json");
@@ -64,16 +63,33 @@ public class EleicaoImpl extends UnicastRemoteObject implements Eleicao {
 
     private void salvarResultados(String caminhoArquivoResultados) {
         try (FileWriter writer = new FileWriter(caminhoArquivoResultados)) {
-            Map<Integer, Integer> resultados = new HashMap<>();
+            JsonObject resultadoJson = new JsonObject();
+            JsonArray resultadosArray = new JsonArray();
+
+            String sessionId = UUID.randomUUID().toString(); // Gera um ID de sessão único
+
+            // Itera sobre a lista de candidatos
             for (Candidato candidato : candidatosManager.listarCandidatos()) {
+                JsonObject candidatoJson = new JsonObject();
                 int numeroPartido = candidato.getPartido();
                 int totalVotos = votos.getOrDefault(candidato.getNome(), 0);
-                resultados.put(numeroPartido, totalVotos);
+
+                candidatoJson.addProperty("id_sessao", sessionId);
+                candidatoJson.addProperty("nome", candidato.getNome());
+                candidatoJson.addProperty("numero_partido", numeroPartido);
+                candidatoJson.addProperty("votos", totalVotos);
+
+                resultadosArray.add(candidatoJson);
             }
-            Gson gson = new Gson();
-            gson.toJson(resultados, writer);
+
+            resultadoJson.add("resultados", resultadosArray);
+
+            // Serializa o objeto JSON para o arquivo com formatação
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(resultadoJson, writer);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }
