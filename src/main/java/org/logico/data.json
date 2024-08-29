@@ -1,0 +1,12 @@
+{
+  "candidatos": [
+    { "nome": "Nove dedos cachaceiro", "partido": 31 },
+    { "nome": "Edison Farias", "partido": 10 },
+    { "nome": "Bora bill", "partido": 66 }
+  ],
+  "votos": {
+    "Nove dedos cachaceiro": 0,
+    "Edison Farias": 0,
+    "Bora bill": 0
+  }
+}
