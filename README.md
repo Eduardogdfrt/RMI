@@ -10,9 +10,12 @@ Abra priemiro o Servidor Rmi e apos isso abra a Main nao abra a main sem o Rmi q
 
 3- Va ate a raiz e rode a main
 
-4- Apos fechada desligue a Main primeiro digitando 0 
+4- Observe os "tics" a cada 5 segundos no prompt do RMI, e o vote no prompt da MAIN
 
-5- desligue o servidor
+5- Apos fechada  a  sessao desligue a Main primeiro digitando 0 
+
+6- desligue o servidor
+
 
 
 ![Alexandre-e1664377188340](https://github.com/user-attachments/assets/aeef51aa-2b72-471c-b396-c06c3fbe3f35)
