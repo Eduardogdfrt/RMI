@@ -13,3 +13,6 @@ Abra priemiro o Servidor Rmi e apos isso abra a Main nao abra a main sem o Rmi q
 4- Apos fechada desligue a Main primeiro digitando 0 
 
 5- desligue o servidor
+
+
+![Alexandre-e1664377188340](https://github.com/user-attachments/assets/aeef51aa-2b72-471c-b396-c06c3fbe3f35)
