@@ -1,8 +1,8 @@
 {
   "candidatos": [
-    { "nome": "Nove dedos cachaceiro", "partido": 31 },
-    { "nome": "Edison Farias", "partido": 10 },
-    { "nome": "Bora bill", "partido": 66 }
+    { "nome": "Adilson do Bigodao", "partido": 1 },
+    { "nome": "Edison Farias", "partido": 2 },
+    { "nome": "Bora bill", "partido": 10 }
   ],
   "votos": {
     "Nove dedos cachaceiro": 0,

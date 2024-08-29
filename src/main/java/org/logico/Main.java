@@ -14,22 +14,23 @@ public class Main {
             Eleicao eleicao = (Eleicao) Naming.lookup("rmi://localhost/Eleicao");
             Scanner scanner = new Scanner(System.in);
 
-            // Testar se a conexão está funcionando e listar candidatos
-            System.out.println("Testando conexão e listando candidatos...");
-            List<Candidato> candidatos = eleicao.listarCandidatos();
-
-            if (candidatos == null || candidatos.isEmpty()) {
-                System.out.println("Nenhum candidato disponível.");
-                return;
-            }
-
-            for (int i = 0; i < candidatos.size(); i++) {
-                Candidato candidato = candidatos.get(i);
-                System.out.println((i + 1) + ". " + candidato.getNome());
-            }
-
             while (true) {
-                System.out.println("Digite o número do candidato para votar ou 0 para sair:");
+                // Listar candidatos
+                System.out.println("Listando candidatos...");
+                List<Candidato> candidatos = eleicao.listarCandidatos();
+
+                if (candidatos == null || candidatos.isEmpty()) {
+                    System.out.println("Nenhum candidato disponível.");
+                    break;
+                }
+
+                // Exibir lista de candidatos com números de partido
+                for (Candidato candidato : candidatos) {
+                    System.out.println("Número do partido: " + candidato.getPartido() + " - " + candidato.getNome());
+                }
+
+                // Perguntar ao usuário qual candidato deseja votar
+                System.out.println("Digite o número do partido para votar ou qualquer outro número para não votar (0 para sair):");
 
                 int escolha;
                 try {
@@ -39,34 +40,29 @@ public class Main {
                     continue;
                 }
 
+                // Se o usuário digitar 0, sair do loop
                 if (escolha == 0) {
+                    System.out.println("Saindo...");
                     break;
                 }
 
-                if (escolha < 1 || escolha > candidatos.size()) {
-                    System.out.println("Escolha inválida. Tente novamente.");
+                // Verificar se a escolha corresponde a um candidato
+                Candidato candidatoEscolhido = candidatos.stream()
+                        .filter(candidato -> candidato.getPartido() == escolha)
+                        .findFirst()
+                        .orElse(null);
+
+                if (candidatoEscolhido == null) {
+                    System.out.println("Número de partido inválido. Nenhum voto registrado.");
                     continue;
                 }
 
-                Candidato candidatoEscolhido = candidatos.get(escolha - 1);
+                // Registrar o voto
+                eleicao.recebeVotos(candidatoEscolhido.getNome(), 1); // Conta um voto por vez
 
-                System.out.println("Digite o número de votos para " + candidatoEscolhido.getNome() + ":");
-                int votos;
-                try {
-                    votos = Integer.parseInt(scanner.nextLine());
-                    if (votos < 0) {
-                        System.out.println("O número de votos não pode ser negativo.");
-                        continue;
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Entrada inválida. Por favor, digite um número.");
-                    continue;
-                }
-
-                eleicao.recebeVotos(candidatoEscolhido.getNome(), votos);
-
+                // Exibir confirmação e votos atuais
                 int votosAtuais = eleicao.getVotos(candidatoEscolhido.getNome());
-                System.out.println("Votos atuais para " + candidatoEscolhido.getNome() + ": " + votosAtuais);
+                System.out.println("Voto registrado para " + candidatoEscolhido.getNome() + ". Total de votos: " + votosAtuais);
             }
 
             scanner.close();
